@@ -1,0 +1,90 @@
+﻿*{box-sizing:border-box} body{margin:0;background:#131313;color:#fff;font-family:Arial,sans-serif}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#1a1a1a}
+.logo-text{font-size:26px;font-weight:900;font-style:italic}
+.header-right{display:flex;align-items:center;gap:14px}
+.login-btn{background:#00c853;border:0;color:#fff;font-weight:900;padding:9px 22px;border-radius:6px;font-size:15px;cursor:pointer}
+.menu-icon{font-size:26px}
+.game-wrap{max-width:520px;margin:0 auto;padding:10px 12px 30px}
+.history-bar{display:flex;gap:6px;overflow-x:auto;padding:8px 0}
+.history-bar span{white-space:nowrap;padding:6px 10px;border-radius:20px;font-size:13px;font-weight:700;background:#1e3a2a;color:#7ee2a8}
+.history-bar span.high{background:#3b2a4a;color:#d8a7ff}
+.history-bar span.crash{background:#5a1f2a;color:#ff8a8a}
+.game-stage{position:relative;height:280px;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 50% 70%, #2a2a3a 0%, #15151d 55%, #0a0a0f 100%);border:1px solid #333}
+.sunburst{position:absolute;inset:-40%;background:repeating-conic-gradient(from 0deg, rgba(255,255,255,.05) 0deg 4deg, transparent 4deg 10deg);animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stage-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.starting-label{font-size:13px;font-weight:800;letter-spacing:1px}
+.big-timer{font-size:52px;font-weight:900}
+
+.prediction-pill span{font-size:10px;letter-spacing:1px;color:#a0e8c0}
+.prediction-pill strong{font-size:22px}
+.players-badge{position:absolute;right:12px;bottom:28px;background:rgba(0,0,0,.55);padding:6px 10px;border-radius:20px;font-size:13px}
+.progress-line{position:absolute;left:0;right:0;bottom:0;height:4px;background:#2a2a2a}
+.progress-line div{height:100%;background:#00c853;width:30%}
+.bet-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.bet-card{background:#242424;border-radius:12px;padding:12px}
+.bet-tabs{display:flex;background:#3a3a3a;border-radius:20px;overflow:hidden;margin-bottom:12px}
+.bet-tabs button{flex:1;border:0;background:transparent;color:#aaa;padding:8px;font-weight:700}
+.bet-tabs button.active{background:#555;color:#fff}
+.amount-row{display:flex;align-items:center;justify-content:space-between;background:#333;border-radius:8px;padding:6px 10px}
+.amount-row button{width:32px;height:32px;border-radius:50%;border:0;background:#444;color:#fff;font-size:20px}
+.amount{font-size:20px;font-weight:800}
+.quick-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.quick-row button{background:#3a3a3a;border:0;color:#ddd;padding:9px;border-radius:6px}
+.place-bet{width:100%;margin-top:10px;background:#00c853;border:0;color:#fff;padding:12px;border-radius:8px;font-weight:900;font-size:15px}
+.flash-list{max-width:520px;margin:10px auto;padding:0 12px}.flash{background:#28352c;border:1px solid #427348;padding:12px;border-radius:8px}
+.auth-overlay[hidden],#signupPanel[hidden],#loginPanel[hidden],#forgotInfo[hidden]{display:none!important}
+.auth-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;padding:10px}
+.auth-card{background:#1c1c1c;width:min(500px,100%);max-height:95vh;overflow-y:auto;border:1px solid #333;border-radius:22px;padding:24px}
+.auth-header{display:flex;justify-content:space-between;align-items:center}.auth-brand{font-size:24px}
+.close-auth{color:#98a2b3;border:0;background:transparent;font-size:28px}.auth-line{height:2px;background:#00c647;margin:23px 0 26px}
+.auth-card h2{margin:0 0 30px;font-size:24px}.auth-card label{display:block;color:#9ba5b5;font-size:13px;font-weight:700;margin:18px 0 5px}
+.auth-input{display:flex;align-items:center;background:#252525;border:1px solid #3c3c3c;border-radius:11px;height:49px;overflow:hidden}
+.auth-input span{color:#a3adbe;padding:14px;border-right:1px solid #3c3c3c}.auth-input input{flex:1;background:transparent;color:#fff;border:0;outline:0;padding:12px 14px;font-size:16px}
+.toggle-password{background:transparent;border:0;color:#98a2b3;font-weight:700;padding:12px}.forgot-btn{display:block;margin:18px 0 24px auto;background:none;border:0;color:#00df57;font-weight:700}
+.support-info{color:#d0d0d0;font-size:13px;line-height:1.6}.auth-submit{width:100%;height:57px;border:0;border-radius:12px;background:#117a30;color:#fff;font-size:18px;font-weight:700}
+.auth-footer{margin-top:25px;padding-top:22px;border-top:1px solid #333;text-align:center;color:#9da7b7}.auth-footer button{border:0;background:none;color:#00df57;font-weight:700}
+
+
+#plane.crashed{transform:rotate(90deg) scale(0.8);opacity:0.4}
+#plane.waiting{left:20px!important;bottom:20px!important;transform:rotate(0deg)}
+.plane-trail{position:absolute;left:0;bottom:0;height:2px;background:linear-gradient(90deg, transparent, #ff4444);z-index:4;pointer-events:none}
+
+#flightCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:3}
+#plane2{position:absolute;left:10px;bottom:10px;z-index:6;transition:left .08s linear,bottom .08s linear,transform .2s;pointer-events:none}
+.plane-body{font-size:42px;color:#ff2a2a;transform:rotate(25deg);filter:drop-shadow(0 0 8px rgba(255,0,0,.8));text-shadow:0 0 10px #ff0000}
+#plane2.crashed .plane-body{transform:rotate(90deg);opacity:.4}
+.game-stage{background:radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0d0d1a 60%, #050508 100%)}
+.big-timer.flew{color:#ff2a2a!important}
+.starting-label.flew{color:#fff;letter-spacing:3px}
+
+
+/* EXACT LIKE PHOTO - 5.12x style */
+#plane2{position:absolute;left:10px;bottom:10px;z-index:20!important;pointer-events:none;filter:drop-shadow(0 0 10px rgba(255,0,0,.8))}
+#plane2 svg{width:110px;height:55px;display:block}
+#plane2.crashed{opacity:.3;transform:rotate(15deg)}
+.big-timer{position:relative;z-index:10;text-shadow:0 0 30px rgba(150,0,255,.9), 0 0 60px rgba(150,0,255,.5)}
+.stage-center::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;height:180px;background:radial-gradient(ellipse, rgba(120,0,255,.55) 0%, rgba(80,0,180,.25) 40%, transparent 70%);z-index:0;pointer-events:none}
+#flightCanvas{z-index:5!important}
+
+
+#plane2 svg{width:130px!important;height:70px!important}
+#plane2{filter:drop-shadow(0 4px 8px rgba(0,0,0,.5)) drop-shadow(0 0 10px rgba(255,0,0,.7))}
+
+/* FIX - prediction back + plane starts far left */
+
+#flightCanvas{position:absolute!important;left:0!important;bottom:0!important;width:100%!important;height:100%!important}
+#plane2{position:absolute!important;z-index:20!important}
+.stage-center{position:relative}
+
+/* CENTRED PREDICTION - TOP CENTRE, NO OVERLAP */
+.prediction-pill{display:flex!important;position:absolute!important;top:6px!important;left:50%!important;transform:translateX(-50%)!important;z-index:30!important;background:rgba(20,0,0,.9)!important;border:1px solid #ff2a2a!important;padding:5px 14px!important;border-radius:20px!important;font-size:13px!important;white-space:nowrap!important;gap:6px;align-items:center;justify-content:center}
+.stage-center{padding-top:48px!important}
+.big-timer{margin-top:18px!important;font-size:64px!important}
+#phaseLabel{margin-top:6px!important}
+#plane2 svg{width:130px!important;height:65px!important;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+
+/* RED PLANE LIKE PHOTO */
+#plane2 svg{width:110px!important;height:50px!important;filter:drop-shadow(0 0 8px rgba(255,0,0,.9))!important}
+#plane2{transform:rotate(-8deg)}
+.prediction-pill{display:flex!important;position:absolute!important;top:6px!important;left:50%!important;transform:translateX(-50%)!important;z-index:30!important}

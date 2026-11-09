@@ -1,0 +1,20 @@
+﻿document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("authOverlay");
+  const loginBtn = document.getElementById("loginBtn");
+  const closeBtn = document.getElementById("closeAuth");
+  const loginPanel = document.getElementById("loginPanel");
+  const signupPanel = document.getElementById("signupPanel");
+  const showSignup = document.getElementById("showSignup");
+  const showLogin = document.getElementById("showLogin");
+  const forgotBtn = document.getElementById("forgotBtn");
+  const forgotInfo = document.getElementById("forgotInfo");
+  if(loginBtn && overlay) loginBtn.addEventListener("click", ()=>{ overlay.hidden=false; if(loginPanel) loginPanel.hidden=false; if(signupPanel) signupPanel.hidden=true; });
+  if(closeBtn && overlay) closeBtn.addEventListener("click", ()=>{ overlay.hidden=true; });
+  if(overlay) overlay.addEventListener("click", (e)=>{ if(e.target===overlay) overlay.hidden=true; });
+  if(showSignup) showSignup.addEventListener("click", ()=>{ loginPanel.hidden=true; signupPanel.hidden=false; });
+  if(showLogin) showLogin.addEventListener("click", ()=>{ signupPanel.hidden=true; loginPanel.hidden=false; });
+  if(forgotBtn && forgotInfo) forgotBtn.addEventListener("click", ()=>{ forgotInfo.hidden=!forgotInfo.hidden; });
+  document.querySelectorAll(".toggle-password").forEach(btn=>{ btn.addEventListener("click", ()=>{ const inp=btn.parentElement.querySelector("input"); if(!inp) return; const show=inp.type==="password"; inp.type=show?"text":"password"; btn.textContent=show?"Hide":"Show"; }); });
+  document.querySelectorAll(".amount-row").forEach(row=>{ const amt=row.querySelector(".amount"); if(!amt) return; const minus=row.querySelector(".minus"); const plus=row.querySelector(".plus"); const card=row.closest(".bet-card"); const betBtn=card?card.querySelector(".place-bet"):null; function refresh(){ if(betBtn) betBtn.textContent="BET "+parseFloat(amt.textContent).toFixed(2)+" ZAR"; } if(minus) minus.addEventListener("click", ()=>{ let v=parseFloat(amt.textContent)-1; if(v<1) v=1; amt.textContent=v.toFixed(2); refresh(); }); if(plus) plus.addEventListener("click", ()=>{ let v=parseFloat(amt.textContent)+1; amt.textContent=v.toFixed(2); refresh(); }); refresh(); });
+  document.querySelectorAll(".quick-row button").forEach(b=>{ b.addEventListener("click", ()=>{ const card=b.closest(".bet-card"); const amt=card?card.querySelector(".amount"):null; const betBtn=card?card.querySelector(".place-bet"):null; if(amt) amt.textContent=parseFloat(b.textContent).toFixed(2); if(betBtn&&amt) betBtn.textContent="BET "+amt.textContent+" ZAR"; }); });
+});

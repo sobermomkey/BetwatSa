@@ -1,0 +1,116 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>betway - FLIGHT ZA</title>
+<link rel="stylesheet" href="{% static 'flight/style.css' %}">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo-text">betway</span></div>
+  <div class="header-right">
+    {% if request.user.is_authenticated %}
+      <span style="color:#fff;font-weight:700">+27 {{ request.user.username }}</span>
+      <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="login-btn">LOGOUT</button></form>
+    {% else %}
+      <button type="button" id="loginBtn" class="login-btn">LOGIN</button>
+    {% endif %}
+    <span class="menu-icon">&#9776;</span>
+  </div>
+</header>
+
+{% if messages %}<div class="flash-list">{% for m in messages %}<div class="flash">{{ m }}</div>{% endfor %}</div>{% endif %}
+
+<main class="game-wrap">
+  <div class="history-bar" id="historyBar"></div>
+  <section class="game-stage">
+    <canvas id="flightCanvas"></canvas><div id="plane2">
+<svg width="110" height="50" viewBox="0 0 120 60" fill="none">
+  <!-- Body - long red like photo -->
+  <path d="M6 32 L85 26 L108 28 L108 34 L85 40 L6 36 Z" fill="#ff0000"/>
+  <!-- Tail fin - up on left -->
+  <path d="M10 32 L20 14 L32 15 L26 31 Z" fill="#ff0000"/>
+  <!-- Main wing - down middle -->
+  <path d="M42 36 L52 52 L64 52 L56 36 Z" fill="#ff0000"/>
+  <!-- Small tail wing -->
+  <path d="M12 36 L18 46 L28 46 L22 36 Z" fill="#ff0000"/>
+  <!-- Nose tip -->
+  <path d="M108 26 L114 28 L114 34 L108 36 Z" fill="#ff0000"/>
+  <!-- Propeller - vertical on nose -->
+  <line x1="113" y1="18" x2="113" y2="44" stroke="#ff0000" stroke-width="3" stroke-linecap="round"/>
+  <!-- X on body - like photo -->
+  <line x1="76" y1="29" x2="86" y2="37" stroke="#0a0a0a" stroke-width="2.5"/>
+  <line x1="86" y1="29" x2="76" y2="37" stroke="#0a0a0a" stroke-width="2.5"/>
+</svg>
+</div>
+    <div class="stage-center">
+      <div class="starting-label" id="phaseLabel">STARTING IN</div>
+      <div class="big-timer" id="bigTimer">5.0s</div>
+      <div class="prediction-pill"><span>NEXT PREDICTION</span><strong id="nextPred">2.00x</strong></div>
+    </div>
+    <div class="players-badge">👥 <span id="playerCount">1,012</span></div>
+    <div class="progress-line"><div id="progressFill"></div></div>
+  </section>
+  <section class="bet-grid">
+    <div class="bet-card">
+      <div class="bet-tabs"><button class="active">BET</button><button>AUTO</button></div>
+      <div class="amount-row"><button class="minus">-</button><span class="amount">2.00</span><button class="plus">+</button></div>
+      <div class="quick-row"><button>10</button><button>20</button></div>
+      <div class="quick-row"><button>50</button><button>100</button></div>
+      <button class="place-bet">PLACE BET</button>
+    </div>
+    <div class="bet-card">
+      <div class="bet-tabs"><button class="active">BET</button><button>AUTO</button></div>
+      <div class="amount-row"><button class="minus">-</button><span class="amount">2.00</span><button class="plus">+</button></div>
+      <div class="quick-row"><button>10</button><button>20</button></div>
+      <div class="quick-row"><button>50</button><button>100</button></div>
+      <button class="place-bet">PLACE BET</button>
+    </div>
+  </section>
+</main>
+
+<!-- LOGIN / SIGNUP - SAME PAGE, SAME INTERFACE -->
+<div id="authOverlay" class="auth-overlay" hidden>
+  <section class="auth-card">
+    <div class="auth-header"><div class="auth-brand"><strong>betway</strong></div><button type="button" id="closeAuth" class="close-auth">×</button></div>
+    <div class="auth-line"></div>
+    <div id="loginPanel">
+      <h2>LOGIN</h2>
+      <form method="post" action="{% url 'login' %}">{% csrf_token %}
+        <label>MOBILE NUMBER</label>
+        <div class="auth-input phone-input"><span>+27</span><input name="phone" type="tel" inputmode="numeric" maxlength="9" pattern="[0-9]{9}" placeholder="Phone number" required></div>
+        <label>PASSWORD</label>
+        <div class="auth-input"><input name="password" type="password" placeholder="Password" required><button type="button" class="toggle-password">Show</button></div>
+        <button type="button" id="forgotBtn" class="forgot-btn">Forgot Password?</button>
+        <p id="forgotInfo" class="support-info" hidden>Contact your account administrator for identity verification and a secure password reset.</p>
+        <button type="submit" class="auth-submit">LOGIN</button>
+      </form>
+      <div class="auth-footer">Don't have an account? <button type="button" id="showSignup">Sign Up</button></div>
+    </div>
+    <div id="signupPanel" hidden>
+      <h2>SIGN UP</h2>
+      <form method="post" action="{% url 'register' %}">{% csrf_token %}
+        <label>MOBILE NUMBER</label>
+        <div class="auth-input phone-input"><span>+27</span><input name="phone" type="tel" inputmode="numeric" maxlength="9" pattern="[0-9]{9}" placeholder="Phone number" required></div>
+        <label>PASSWORD</label>
+        <div class="auth-input"><input name="password" type="password" placeholder="Create password" minlength="8" required><button type="button" class="toggle-password">Show</button></div>
+        <label>CONFIRM PASSWORD</label>
+        <div class="auth-input"><input name="confirm_password" type="password" placeholder="Confirm password" required><button type="button" class="toggle-password">Show</button></div>
+        <button type="submit" class="auth-submit">CREATE ACCOUNT</button>
+      </form>
+      <div class="auth-footer">Already registered? <button type="button" id="showLogin">Login</button></div>
+    </div>
+  </section>
+</div>
+<script src="{% static 'flight/account.js' %}" defer></script>
+<script src="{% static 'flight/game.js' %}" defer></script>
+</body>
+</html>
+
+
+
+
+
+
